@@ -1,14 +1,11 @@
 ﻿using InputSimulator;
 using ScreenCapture;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Bot
 {
@@ -27,8 +24,6 @@ namespace Bot
         private CancellationTokenSource _cancellationTokenSource;
         private TimeSpan _lastRenderingTime;
 
-        private Thread _thread;
-
         #endregion
 
         #region Life Cycle
@@ -39,16 +34,8 @@ namespace Bot
             _inputManager = new InputManager();
             _captureManager = new CaptureManager(1920, 1080, true, 4);
 
-            _thread = new Thread(ThreadMethod);
-            _thread.IsBackground = true;
-            _thread.Start();
-
             Loaded += MainWindow_Loaded;
             Closing += MainWindow_Closing;
-        }
-
-        private void ThreadMethod()
-        {
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

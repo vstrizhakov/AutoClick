@@ -24,7 +24,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>ScreenCapture</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -75,23 +75,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)Include</IncludePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x86</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)Include</IncludePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x64</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)Include</IncludePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x86</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)Include</IncludePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x64</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -99,7 +99,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions);_WIN32_WINNT=0x601</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -112,7 +112,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);_WIN32_WINNT=0x601</PreprocessorDefinitions>
       <StructMemberAlignment>Default</StructMemberAlignment>
     </ClCompile>
     <Link>
@@ -124,7 +124,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions);_WIN32_WINNT=0x601</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -135,7 +135,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions);_WIN32_WINNT=0x601</PreprocessorDefinitions>
       <StructMemberAlignment>Default</StructMemberAlignment>
     </ClCompile>
     <Link>
@@ -143,17 +143,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="OffScreenRenderer.h" />
+    <ClInclude Include="D3D11SurfaceQueueDevice.h" />
+    <ClInclude Include="D3D9SurfaceQueueDevice.h" />
+    <ClInclude Include="DXGISharedTypes.h" />
+    <ClInclude Include="DXGISurfaceProducer.h" />
+    <ClInclude Include="DXGISurfaceConsumer.h" />
+    <ClInclude Include="DXGISurfaceQueue.h" />
+    <ClInclude Include="ISurfaceConsumer.h" />
+    <ClInclude Include="ISurfaceProducer.h" />
+    <ClInclude Include="ISurfaceQueueDevice.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="RenderingManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="CaptureManager.h" />
-    <ClInclude Include="TriangleRenderer.h" />
+    <ClInclude Include="ISurfaceQueue.h" />
+    <ClInclude Include="SharedDXGISurface.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="OffScreenRenderer.cpp" />
+    <ClCompile Include="D3D11SurfaceQueueDevice.cpp" />
+    <ClCompile Include="D3D9SurfaceQueueDevice.cpp" />
+    <ClCompile Include="DXGISurfaceConsumer.cpp" />
+    <ClCompile Include="DXGISurfaceProducer.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -161,9 +171,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="CaptureManager.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="RenderingManager.cpp" />
-    <ClCompile Include="TriangleRendrer.cpp" />
+    <ClCompile Include="DXGISurfaceQueue.cpp" />
+    <ClCompile Include="SharedDXGISurface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
