@@ -48,7 +48,8 @@
 
             <Image Grid.Row="0"
                    Grid.Column="1"
-                   Name="ImageContainer">
+                   Name="ImageContainer"
+                   Stretch="Uniform">
                 <Image.Source>
                     <interop:D3DImage x:Name="D3DImageSource"/>
                 </Image.Source>

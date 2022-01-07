@@ -153,6 +153,7 @@
     <ClInclude Include="ISurfaceProducer.h" />
     <ClInclude Include="ISurfaceQueueDevice.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="RenderOutput.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="CaptureManager.h" />
     <ClInclude Include="ISurfaceQueue.h" />
@@ -172,6 +173,7 @@
     </ClCompile>
     <ClCompile Include="CaptureManager.cpp" />
     <ClCompile Include="DXGISurfaceQueue.cpp" />
+    <ClCompile Include="RenderOutput.cpp" />
     <ClCompile Include="SharedDXGISurface.cpp" />
   </ItemGroup>
   <ItemGroup>

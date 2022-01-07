@@ -1,11 +1,16 @@
 ﻿using InputSimulator;
 using ScreenCapture;
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using Tesseract;
 
 namespace Bot
 {
@@ -23,6 +28,7 @@ namespace Bot
         private Int32Rect _selectedRectangle = new Int32Rect(0, 0, 1920, 1080);
         private CancellationTokenSource _cancellationTokenSource;
         private TimeSpan _lastRenderingTime;
+        private RenderOutput _renderOutput;
 
         #endregion
 
@@ -32,7 +38,7 @@ namespace Bot
         {
             InitializeComponent();
             _inputManager = new InputManager();
-            _captureManager = new CaptureManager(1920, 1080, true, 4);
+            _captureManager = new CaptureManager();
 
             Loaded += MainWindow_Loaded;
             Closing += MainWindow_Closing;
@@ -46,10 +52,12 @@ namespace Bot
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            _renderOutput = _captureManager.AddOutput(D3DImageSource, new System.Windows.Rect(0, 0, 0.5, 0.5));
+
             CompositionTarget.Rendering += CompositionTarget_Rendering;
             if (_inputManager != null)
             {
-                _inputManager.Initialize();
+                //_inputManager.Initialize();
                 _inputManager.KeyPressed += InputManager_KeyPressed;
             }
         }
@@ -172,8 +180,41 @@ namespace Bot
             {
                 if (D3DImageSource.IsFrontBufferAvailable && renderingEventArgs.RenderingTime != _lastRenderingTime)
                 {
-                    _captureManager.Render(D3DImageSource);
+                    _captureManager.Render();
                     _lastRenderingTime = renderingEventArgs.RenderingTime;
+
+                    if (_renderOutput != null)
+                    {
+                        var data = _renderOutput.GetData();
+                        if (data != null)
+                        {
+                            var width = 960;
+                            var height = 540;
+                            using (var stream = new MemoryStream(data))
+                            using (var bmp = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb))
+                            {
+                                BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0,
+                                                                                bmp.Width,
+                                                                                bmp.Height),
+                                                                  ImageLockMode.WriteOnly,
+                                                                  bmp.PixelFormat);
+
+                                IntPtr pNative = bmpData.Scan0;
+                                Marshal.Copy(data, 0, pNative, data.Length);
+
+                                bmp.UnlockBits(bmpData);
+
+                                bmp.Save($"{Guid.NewGuid()}.png", System.Drawing.Imaging.ImageFormat.Png);
+                                using (var engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default))
+                                {
+                                    using (var page = engine.Process(bmp))
+                                    {
+                                        var text = page.GetText();
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

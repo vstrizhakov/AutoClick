@@ -66,6 +66,9 @@
     <ClInclude Include="D3D9SurfaceQueueDevice.h">
       <Filter>Header Files\Sharing Surfaces</Filter>
     </ClInclude>
+    <ClInclude Include="RenderOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -94,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="D3D11SurfaceQueueDevice.cpp">
       <Filter>Source Files\Sharing Surfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderOutput.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

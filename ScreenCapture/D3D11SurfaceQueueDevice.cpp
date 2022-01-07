@@ -153,7 +153,7 @@ HRESULT D3D11SurfaceQueueDevice::CreateCopyResource(DXGI_FORMAT format, UINT wid
 
 HRESULT D3D11SurfaceQueueDevice::CopySurface(IUnknown* destinationSurface, IUnknown* sourceSurface, UINT width, UINT height)
 {
-    D3D11_BOX unitBox = { 0, 0, width, height, 1 };
+    D3D11_BOX unitBox = { 0, 0, 0, width, height, 1 };
     ID3D11DeviceContext* context = nullptr;
     ID3D11Resource* sourceResource = nullptr;
     ID3D11Resource* destinationResource = nullptr;
@@ -202,7 +202,6 @@ HRESULT D3D11SurfaceQueueDevice::LockSurface(IUnknown* surface, DWORD flags)
     CHECKHR(hResult);
 
     hResult = context->Map(resource, 0, D3D11_MAP_READ, d3d11flags, &region);
-    CHECKHR(hResult);
 
 CLEANUP:
     SafeRelease(&resource);
