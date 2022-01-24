@@ -40,8 +40,8 @@ namespace AutoClick
         {
             InitializeComponent();
             _inputManager = new InputSimulator.InputManager();
-            _captureManager = new CaptureManager();
-            _renderOutputs = new List<RenderOutput>();
+            //_captureManager = new CaptureManager();
+            //_renderOutputs = new List<RenderOutput>();
             _scriptPlayer = new ScriptPlayer(_inputManager);
 
             Topmost = true;
@@ -53,15 +53,15 @@ namespace AutoClick
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            CompositionTarget.Rendering -= CompositionTarget_Rendering;
-            _captureManager?.Dispose();
+            //CompositionTarget.Rendering -= CompositionTarget_Rendering;
+            //_captureManager?.Dispose();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            _desktopRenderOutput = _captureManager.AddOutput(D3DImageSource, new System.Windows.Rect(0, 0, 1, 1));
+            //_desktopRenderOutput = _captureManager.AddOutput(D3DImageSource, new System.Windows.Rect(0, 0, 1, 1));
 
-            CompositionTarget.Rendering += CompositionTarget_Rendering;
+            //CompositionTarget.Rendering += CompositionTarget_Rendering;
 
             _inputManager.KeyPressed += InputManager_KeyPressed;
 
