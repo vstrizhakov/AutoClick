@@ -66,7 +66,7 @@ HRESULT CompileShader(const char* source, LPCSTR entryPoint, LPCSTR profile, ID3
 RenderOutput::RenderOutput(ID3D11Device* d3d11Device, ID3D11DeviceContext* d3d11DeviceContext, D3DImage^ d3dImage, Size^ frameSize, Rect^ window)
 {
     HRESULT hResult = S_OK;
-    
+
     UINT width = frameSize->Width * window->Width;
     UINT height = frameSize->Height * window->Height;
 
@@ -335,12 +335,7 @@ CLEANUP:
 
 HRESULT RenderOutput::DrawFrame(ID3D11Resource* frame)
 {
-    {
-        ID3D11Resource* d3d11frame = _d3d11frame;
-        SafeRelease(&d3d11frame);
-    }
-    _d3d11frame = frame;
-    _d3d11frame->AddRef();
+    _data = GetData(frame);
 
     _d3dImage->Lock();
 
@@ -428,14 +423,14 @@ CLEANUP:
     return hResult;
 }
 
-array<byte>^ RenderOutput::GetData()
+array<byte>^ RenderOutput::GetData(ID3D11Resource* frame)
 {
     HRESULT hResult = S_OK;
 
-    UINT width = _frameSize->Width * _window->Width;
-    UINT height = _frameSize->Height * _window->Height;
+    UINT width = GetWidth();
+    UINT height = GetHeight();
     D3D11_BOX box = { 0, 0, 0, width, height, 1 };
-    _d3d11DeviceContext->CopySubresourceRegion(_d3d11texture, 0, 0, 0, 0, _d3d11frame, 0, &box);
+    _d3d11DeviceContext->CopySubresourceRegion(_d3d11texture, 0, 0, 0, 0, frame, 0, &box);
 
     D3D11_MAPPED_SUBRESOURCE map;
     hResult = _d3d11DeviceContext->Map(_d3d11texture, 0, D3D11_MAP_READ, 0, &map);
@@ -451,6 +446,22 @@ array<byte>^ RenderOutput::GetData()
 
 CLEANUP:
     return bytes;
+}
+
+array<byte>^ RenderOutput::GetData()
+{
+    return _data;
+}
+
+
+UINT RenderOutput::GetWidth()
+{
+    return _frameSize->Width * _window->Width;
+}
+
+UINT RenderOutput::GetHeight()
+{
+    return _frameSize->Height * _window->Height;
 }
 
 HRESULT CompileShader(const char* source, LPCSTR entryPoint, LPCSTR profile, ID3D10Blob** blob)

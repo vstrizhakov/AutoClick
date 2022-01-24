@@ -11,6 +11,8 @@ namespace ScreenCapture
     public:
         ~RenderOutput();
         array<byte>^ GetData();
+        UINT GetWidth();
+        UINT GetHeight();
 
     internal:
         RenderOutput(ID3D11Device* d3d11Device, ID3D11DeviceContext* d3d11DeviceContext, D3DImage^ d3dImage, Size^ frameSize, Rect^ window);
@@ -21,6 +23,8 @@ namespace ScreenCapture
         HRESULT InitializeD3D9();
         HRESULT InitializeD3D11();
         HRESULT InitializeSurfaceQueue(UINT width, UINT height);
+
+        array<byte>^ GetData(ID3D11Resource* frame);
 
     private:
         D3DImage^ _d3dImage = nullptr;
@@ -42,7 +46,7 @@ namespace ScreenCapture
         IDirect3D9Ex* _d3d9 = nullptr;
         IDirect3DDevice9Ex* _d3d9Device = nullptr;
 
-        ID3D11Resource* _d3d11frame = nullptr;
+        array<byte>^ _data = nullptr;
         ID3D11Texture2D* _d3d11texture = nullptr;
     };
 }

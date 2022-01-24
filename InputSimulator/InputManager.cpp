@@ -73,7 +73,7 @@ void InputManager::KeyboardHook()
 
 void InputManager::ProcessKeyboardInput(unsigned short keyCode)
 {
-	KeyPressed(this, keyCode);
+	KeyPressed(this, MapVirtualKeyA(keyCode, MAPVK_VSC_TO_VK));
 }
 
 void InputManager::SendString(String^ string)
@@ -84,8 +84,8 @@ void InputManager::SendString(String^ string)
 		InterceptionKeyStroke* keyStrokes = new InterceptionKeyStroke[totalLength];
 		for (int i = 0; i < totalLength; i += 2)
 		{
-			char code = string[i / 2];
-			int intCode = MapVirtualKeyA(code, MAPVK_VK_TO_VSC);
+			char keyCode = string[i / 2];
+			int intCode = MapVirtualKeyA(keyCode, MAPVK_VK_TO_VSC);
 			// KeyDown
 			InterceptionKeyStroke keyDown;
 			keyDown.code = intCode;
@@ -106,7 +106,7 @@ void InputManager::SendString(String^ string)
 void InputManager::SendKeyDown(unsigned short keyCode)
 {
 	InterceptionKeyStroke keyDown;
-	keyDown.code = keyCode;
+	keyDown.code = MapVirtualKeyA(keyCode, MAPVK_VK_TO_VSC);
 	keyDown.state = InterceptionKeyState::INTERCEPTION_KEY_DOWN;
 	keyDown.information = 0;
 	interception_send(_context, _keyboardDevice, (InterceptionStroke*)&keyDown, 1);
@@ -115,7 +115,7 @@ void InputManager::SendKeyDown(unsigned short keyCode)
 void InputManager::SendKeyUp(unsigned short keyCode)
 {
 	InterceptionKeyStroke keyUp;
-	keyUp.code = keyCode;
+	keyUp.code = MapVirtualKeyA(keyCode, MAPVK_VK_TO_VSC);
 	keyUp.state = InterceptionKeyState::INTERCEPTION_KEY_UP;
 	keyUp.information = 0;
 	interception_send(_context, _keyboardDevice, (InterceptionStroke*)&keyUp, 1);

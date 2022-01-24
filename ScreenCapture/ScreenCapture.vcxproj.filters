@@ -3,113 +3,88 @@
   <ItemGroup>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Sharing Surfaces">
-      <UniqueIdentifier>{fd264e99-43e8-4536-b760-29546ef25308}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Sharing Surfaces">
-      <UniqueIdentifier>{987cc953-875e-444e-a2dd-1bcfb0afbede}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Sharing Surfaces\Interfaces">
-      <UniqueIdentifier>{7230c703-6992-48f4-8d0f-3dd760669796}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Resource.h">
+    <ClInclude Include="CaptureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11SurfaceQueueDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D9SurfaceQueueDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DXGISharedTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DXGISurfaceConsumer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DXGISurfaceProducer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DXGISurfaceQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ISurfaceConsumer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ISurfaceProducer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ISurfaceQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ISurfaceQueueDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CaptureManager.h">
+    <ClInclude Include="RenderOutput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DXGISurfaceQueue.h">
-      <Filter>Header Files\Sharing Surfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ISurfaceQueue.h">
-      <Filter>Header Files\Sharing Surfaces\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ISurfaceProducer.h">
-      <Filter>Header Files\Sharing Surfaces\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ISurfaceConsumer.h">
-      <Filter>Header Files\Sharing Surfaces\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="DXGISurfaceConsumer.h">
-      <Filter>Header Files\Sharing Surfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="DXGISurfaceProducer.h">
-      <Filter>Header Files\Sharing Surfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="DXGISharedTypes.h">
-      <Filter>Header Files\Sharing Surfaces</Filter>
-    </ClInclude>
     <ClInclude Include="SharedDXGISurface.h">
-      <Filter>Header Files\Sharing Surfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ISurfaceQueueDevice.h">
-      <Filter>Header Files\Sharing Surfaces\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11SurfaceQueueDevice.h">
-      <Filter>Header Files\Sharing Surfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D9SurfaceQueueDevice.h">
-      <Filter>Header Files\Sharing Surfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderOutput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AssemblyInfo.cpp">
+    <ClCompile Include="CaptureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11SurfaceQueueDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D9SurfaceQueueDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DXGISurfaceConsumer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DXGISurfaceProducer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DXGISurfaceQueue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CaptureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DXGISurfaceConsumer.cpp">
-      <Filter>Source Files\Sharing Surfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="DXGISurfaceProducer.cpp">
-      <Filter>Source Files\Sharing Surfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="DXGISurfaceQueue.cpp">
-      <Filter>Source Files\Sharing Surfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="SharedDXGISurface.cpp">
-      <Filter>Source Files\Sharing Surfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D9SurfaceQueueDevice.cpp">
-      <Filter>Source Files\Sharing Surfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11SurfaceQueueDevice.cpp">
-      <Filter>Source Files\Sharing Surfaces</Filter>
-    </ClCompile>
     <ClCompile Include="RenderOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="app.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="app.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ClCompile Include="SharedDXGISurface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

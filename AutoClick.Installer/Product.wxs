@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="Auto Click" Language="1033" Version="1.0.0.0" Manufacturer="Vladimir Strizhakov" UpgradeCode="b8f86949-b244-49c6-8d94-115a16069efb">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"/>
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes"/>
+
+		<Feature Id="ProductFeature" Title="Auto Click" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+            <ComponentRef Id="ApplicationShortcut" />
+		</Feature>
+
+        <InstallExecuteSequence>
+            <Custom Action="InstallInterceptionDriver" After="InstallFiles">(NOT Installed) OR UPGRADINGPRODUCTCODE</Custom>
+            <Custom Action="UninstallInterceptionDriver" Before="InstallFiles">Installed AND REMOVE</Custom>
+            <ScheduleReboot After="InstallFinalize"/>
+        </InstallExecuteSequence>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="AutoClick"/>
+			</Directory>
+            <Directory Id="ProgramMenuFolder">
+                <Directory Id="ApplicationProgramsFolder" Name="Auto Click"/>
+            </Directory>
+		</Directory>
+	</Fragment>
+
+    <Fragment>
+        <CustomAction Id="InstallInterceptionDriver" Directory="INSTALLFOLDER" ExeCommand="&quot;[#InterceptionDriverInstaller]&quot; /install" Execute="deferred" Return="asyncWait" Impersonate="no"/>
+        <CustomAction Id="UninstallInterceptionDriver" Directory="INSTALLFOLDER" ExeCommand="&quot;[#InterceptionDriverInstaller]&quot; /uninstall" Execute="deferred" Return="asyncWait" Impersonate="no"/>
+    </Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+            <Component>
+                <File Id="AutoClick.Core.dll" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
+            </Component>
+            <Component>
+                <File Id="AutoClick.exe" Source="$(var.AutoClick.TargetDir)" KeyPath="yes">
+                    <Shortcut Id="ApplicationStartMenuShortcut"
+                              Directory="ApplicationProgramsFolder"
+                              Name="Auto Click"
+                              Description="Auto Click"
+                              WorkingDirectory="INSTALLFOLDER"
+                              Advertise="yes"/>
+                </File>
+            </Component>
+            <Component>
+                <File Id="AutoClick.exe.config" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
+            </Component>
+            <Component>
+                <File Id="InputSimulator.dll" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
+            </Component>
+            <Component>
+                <File Id="Newtonsoft.Json.dll" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
+            </Component>
+            <Component>
+                <File Id="ScreenCapture.dll" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
+            </Component>
+            <Component>
+                <File Id="InterceptionDriverInstaller" Source="install-interception.exe" KeyPath="yes"/>
+            </Component>
+        </ComponentGroup>
+	</Fragment>
+
+    <Fragment>
+        <Component Id="ApplicationShortcut" Directory="ApplicationProgramsFolder" Guid="{F883DB00-3C33-4356-8F85-26D13BEBA49E}">
+            <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
+            <RegistryValue Root="HKMU" Key="Software\VladimirStrizhakov\AutoClick" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+        </Component>
+    </Fragment>
+</Wix>

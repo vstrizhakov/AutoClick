@@ -10,11 +10,7 @@
 #include <comdef.h>
 #include <d3dx9.h>
 #include <d3dx9math.h>
-
-#pragma comment(lib, "d3d9.lib")
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3dcompiler.lib")
+#include <cassert>
 
 #define PRINT_COM_ERROR(x) \
 	_com_error err(x); \
