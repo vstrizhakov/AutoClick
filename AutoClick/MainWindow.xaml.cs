@@ -19,7 +19,6 @@ namespace AutoClick
 
         #region Private Fields
 
-        private readonly InputSimulator.InputManager _inputManager;
         private readonly CaptureManager _captureManager;
         private readonly ScriptPlayer _scriptPlayer;
 
@@ -39,10 +38,9 @@ namespace AutoClick
         public MainWindow()
         {
             InitializeComponent();
-            _inputManager = new InputSimulator.InputManager();
             //_captureManager = new CaptureManager();
             //_renderOutputs = new List<RenderOutput>();
-            _scriptPlayer = new ScriptPlayer(_inputManager);
+            _scriptPlayer = new ScriptPlayer(App.Input);
 
             Topmost = true;
             DelayTextBox.Text = DefaultDelay.TotalMilliseconds.ToString();
@@ -53,6 +51,8 @@ namespace AutoClick
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            App.Input.KeyPressed -= InputManager_KeyPressed;
+
             //CompositionTarget.Rendering -= CompositionTarget_Rendering;
             //_captureManager?.Dispose();
         }
@@ -63,16 +63,7 @@ namespace AutoClick
 
             //CompositionTarget.Rendering += CompositionTarget_Rendering;
 
-            _inputManager.KeyPressed += InputManager_KeyPressed;
-
-            try
-            {
-                _inputManager.Initialize();
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            App.Input.KeyPressed += InputManager_KeyPressed;
 
             UpdateButtons();
         }
@@ -113,8 +104,8 @@ namespace AutoClick
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             await Task.Delay(2000);
-            _inputManager.SendString(Stroke.Text);
-            _inputManager.SendLeftMouseClick(500, 500);
+            App.Input.SendString(Stroke.Text);
+            App.Input.SendLeftMouseClick(500, 500);
         }
 
         private void SelectAreaButton_Click(object sender, RoutedEventArgs e)
@@ -157,21 +148,33 @@ namespace AutoClick
         {
             Dispatcher.Invoke(async () =>
             {
-                if (KeyInterop.KeyFromVirtualKey(keyCode) == Key.Escape)
-                {
-                    await StopScriptAsync();
-                }
-                else if (_isCapturing)
+                if (_isCapturing)
                 {
                     var script = new Core.Serialization.SingleCommand(new Core.Serialization.KeyboardCommand(DefaultDelay, keyCode));
                     CaptureKeyStrokesListBox.Items.Add(new SingleCommandItem(script));
+                }
+                else
+                {
+                    if (_scriptPlayer.IsPlaying)
+                    {
+                        if (keyCode == App.Settings.PauseKey)
+                        {
+                            await StopScriptAsync();
+                        }
+                    }
+                    else
+                    {
+                        if (keyCode == App.Settings.PlayKey)
+                        {
+                            await PlayScriptAsync();
+                        }
+                    }
                 }
             });
         }
 
         private async void PlayScriptButton_Click(object sender, RoutedEventArgs e)
         {
-            
             await PlayScriptAsync();
         }
 

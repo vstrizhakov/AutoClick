@@ -4,15 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:interop="clr-namespace:System.Windows.Interop;assembly=PresentationCore"
+        xmlns:ViewModels="clr-namespace:AutoClick.ViewModels"
         xmlns:local="clr-namespace:AutoClick"
         mc:Ignorable="d"
         Title="AutoClick" Height="500" Width="240">
-    <Grid>
+
+    <Window.DataContext>
+        <ViewModels:MainWindowViewModel/>
+    </Window.DataContext>
+    
+    
+    
+    <Grid>    
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Menu>
+            <MenuItem Header="Settings" Command="{Binding OpenSettingsCommand, Mode=OneWay}"/>
+        </Menu>
+        
         <StackPanel Grid.Column="0" Visibility="Collapsed">
             <TextBox x:Name="Stroke"/>
             <Button Click="Button_Click">GO</Button>

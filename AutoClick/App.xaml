@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:AutoClick"
              Startup="Application_Startup">
     <Application.Resources>
-         
+        <local:KeyCodeConverter x:Key="KeyCodeConverter"/>
     </Application.Resources>
 </Application>
