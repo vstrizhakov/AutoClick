@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Auto Click" Language="1033" Version="1.2.0.0" Manufacturer="Vladimir Strizhakov" UpgradeCode="b8f86949-b244-49c6-8d94-115a16069efb">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"/>
+	<Product Id="*" Name="Auto Click" Language="1033" Version="1.2.1.0" Manufacturer="Vladimir Strizhakov" UpgradeCode="b8f86949-b244-49c6-8d94-115a16069efb">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64"/>
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes"/>
@@ -20,7 +20,7 @@
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
+			<Directory Id="ProgramFiles64Folder">
 				<Directory Id="INSTALLFOLDER" Name="AutoClick"/>
 			</Directory>
             <Directory Id="ProgramMenuFolder">
@@ -36,10 +36,10 @@
 
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-            <Component>
+            <Component Win64="yes">
                 <File Id="AutoClick.Core.dll" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
             </Component>
-            <Component>
+            <Component Win64="yes">
                 <File Id="AutoClick.exe" Source="$(var.AutoClick.TargetDir)" KeyPath="yes">
                     <Shortcut Id="ApplicationStartMenuShortcut"
                               Directory="ApplicationProgramsFolder"
@@ -49,20 +49,35 @@
                               Advertise="yes"/>
                 </File>
             </Component>
-            <Component>
-                <File Id="AutoClick.exe.config" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
+            <Component Win64="yes">
+                <File Id="AutoClick.dll" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
             </Component>
-            <Component>
+            <Component Win64="yes">
                 <File Id="InputSimulator.dll" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
             </Component>
-            <Component>
+            <Component Win64="yes">
                 <File Id="Newtonsoft.Json.dll" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
             </Component>
-            <Component>
+            <Component Win64="yes">
                 <File Id="ScreenCapture.dll" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
             </Component>
-            <Component>
+            <Component Win64="yes">
+                <File Id="Prism.dll" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
+            </Component>
+            <Component Win64="yes">
+                <File Id="Microsoft.Xaml.Behaviors.dll" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
+            </Component>
+            <Component Win64="yes">
                 <File Id="InterceptionDriverInstaller" Source="install-interception.exe" KeyPath="yes"/>
+            </Component>
+            <Component Win64="yes">
+                <File Id="AutoClick.runtimeconfig.json" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
+            </Component>
+            <Component Win64="yes">
+                <File Id="AutoClick.runtimeconfig.dev.json" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
+            </Component>
+            <Component Win64="yes">
+                <File Id="AutoClick.deps.json" Source="$(var.AutoClick.TargetDir)" KeyPath="yes"/>
             </Component>
         </ComponentGroup>
 	</Fragment>

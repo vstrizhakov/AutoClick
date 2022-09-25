@@ -13,8 +13,6 @@
         <ViewModels:MainWindowViewModel/>
     </Window.DataContext>
     
-    
-    
     <Grid>    
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
